@@ -44,6 +44,13 @@ function game() {
         tally[1] = computerResult;
     }
     console.log(tally);
+    if (tally[0] > tally[1]) {
+        console.log(`You won! ${tally[0]} to ${tally[1]}`);
+    } else if (tally[0] < tally[1]) {
+        console.log(`You have lost. ${tally[0]} to ${tally[1]}`);
+    } else {
+        console.log(`It was a tie. ${tally[0]} to ${tally[1]}`);
+    }
 }
 
 function tieLoseWinIndex (computerSelection, playerSelection) {
