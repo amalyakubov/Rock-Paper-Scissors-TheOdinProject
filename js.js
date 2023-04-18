@@ -1,4 +1,3 @@
-let computerSelection =  getComputerChoice();
 
 function getComputerChoice() {
     let choice = 0;
@@ -12,20 +11,11 @@ function getComputerChoice() {
     }
  }
 
- let computerSelectionLowerCase = computerSelection.toLowerCase();
- const playerSelection = 'rock'.toLowerCase();
-
 function playRound() {
-    function tieLoseWinIndex (computerSelection, playerSelection) {
-        if (computerSelection === playerSelection) {
-            return 0;
-        } else if (computerSelection === 'rock' && playerSelection === 'scissors' || computerSelection === 'paper' && playerSelection === 'rock' || computerSelection === 'scissors' && playerSelection === 'paper') {
-            return -1;
-        } else {
-            return 1;
-        } 
-}
-let index = tieLoseWinIndex(computerSelectionLowerCase, playerSelection);
+    let computerSelection =  getComputerChoice();
+    let computerSelectionLowerCase = computerSelection.toLowerCase();
+    const playerSelection = 'rock'.toLowerCase();
+    let index = tieLoseWinIndex(computerSelectionLowerCase, playerSelection);
     if (index === 0) {
         return 'Tie';
     } else if (index === 1) {
@@ -35,4 +25,35 @@ let index = tieLoseWinIndex(computerSelectionLowerCase, playerSelection);
     }
 }
 
-console.log(playRound());
+function game() {
+    let tally = [0, 0];
+    let playerResult = 0;
+    let computerResult = 0;
+    for (let i = 0; i < 5; i++) {
+        playRound(computerSelectionLowerCase = getComputerChoice(), prompt('Please enter your choice'));
+        if (playRound() === 'You won!') {
+            playerResult++;
+            console.log(`You won!`);
+        } else if (playRound() === 'You lost.') {
+            computerResult++;
+            console.log(`You lost.`);
+        } else {
+            console.log(`It's a tie.`);
+        }
+        tally[0] = playerResult;
+        tally[1] = computerResult;
+    }
+    console.log(tally);
+}
+
+function tieLoseWinIndex (computerSelection, playerSelection) {
+    if (computerSelection === playerSelection) {
+        return 0;
+    } else if (computerSelection === 'rock' && playerSelection === 'scissors' || computerSelection === 'paper' && playerSelection === 'rock' || computerSelection === 'scissors' && playerSelection === 'paper') {
+        return -1;
+    } else {
+        return 1;
+    } 
+}
+
+console.log(game());
