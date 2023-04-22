@@ -1,3 +1,10 @@
+let playerSelection = '';
+let results = document.querySelector("#results-child");
+
+let score =  document.querySelector("#score");
+
+let playerScore = 0;
+let computerScore = 0;
 
 function getComputerChoice() {
     let choice = 0;
@@ -14,43 +21,23 @@ function getComputerChoice() {
 function playRound() {
     let computerSelection =  getComputerChoice();
     let computerSelectionLowerCase = computerSelection.toLowerCase();
-    const playerSelection = 'rock'.toLowerCase();
     let index = tieLoseWinIndex(computerSelectionLowerCase, playerSelection);
-    if (index === 0) {
-        return 'Tie';
-    } else if (index === 1) {
-        return 'You won!';
-    } else {
-        return 'You lost.';
-    }
-}
-
-function game() {
-    let tally = [0, 0];
-    let playerResult = 0;
-    let computerResult = 0;
-    for (let i = 0; i < 5; i++) {
-        playRound(computerSelectionLowerCase = getComputerChoice(), prompt('Please enter your choice'));
-        if (playRound() === 'You won!') {
-            playerResult++;
-            console.log(`You won!`);
-        } else if (playRound() === 'You lost.') {
-            computerResult++;
-            console.log(`You lost.`);
-        } else {
-            console.log(`It's a tie.`);
+    if (playerScore === 5 || computerScore === 5) {
+        if (computerScore === 5) {
+            results.textContent = `Computer has won ${computerScore} to ${playerScore}`;
+        } else if (playerScore === 5) {
+            results.textContent = `Player has won ${playerScore} to ${computerScore}`;
         }
-        tally[0] = playerResult;
-        tally[1] = computerResult;
-    }
-    console.log(tally);
-    if (tally[0] > tally[1]) {
-        console.log(`You won! ${tally[0]} to ${tally[1]}`);
-    } else if (tally[0] < tally[1]) {
-        console.log(`You have lost. ${tally[0]} to ${tally[1]}`);
+    } else if (index === 0) {
+        results.textContent = `Tie!`;
+    } else if (index === 1) {
+        results.textContent = `You won! ${playerSelection} beats ${computerSelection}`;
+        playerScore += 1;
     } else {
-        console.log(`It was a tie. ${tally[0]} to ${tally[1]}`);
+        results.textContent = `You lost! ${computerSelection} beats ${playerSelection}`;
+        computerScore += 1;
     }
+    score.textContent = `${playerScore} ${computerScore}`;
 }
 
 function tieLoseWinIndex (computerSelection, playerSelection) {
@@ -63,4 +50,12 @@ function tieLoseWinIndex (computerSelection, playerSelection) {
     } 
 }
 
-console.log(game());
+const btn = document.querySelectorAll('button');
+btn.forEach((button) => {
+    button.addEventListener('click', () => {
+        playerSelection =  document.getElementById(button.id).textContent.toLowerCase();
+        console.log(playerSelection);
+        playRound();
+    })
+})
+
